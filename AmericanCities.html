@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8' />
+  <title>Constantly Curious</title>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.css' rel='stylesheet' />
+  <link href="css/My-Stylesheet.css" rel="stylesheet"/>
+  <style>
+    body { margin:50; padding:0; }
+    #map { margin-left: 175px; position: relative; top:0; bottom:0; width:1100px; height:600px; }
+    a { color: #FF0000; }
+  </style>
+</head>
+
+<body>
+
+<h1 style="margin-left:70px; color:salmon; font-family: 'Goudy Old Style'; font-size: 80px;">Where do people struggle to afford housing <center>in the U.S?</h1>
+
+<div id='map'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiYWxpY2VodWExMSIsImEiOiJjam1iMHV5aXAwMGRtM3JzM2dzamJjamkzIn0.gCsvu2g9o3J5DKJfNarokQ';
+const map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/alicehua11/cjmb3sdkz856v2rpb47yh74ms',
+  center: [-97.55859375, 37.16031654673677],
+  zoom: 3.30
+});
+
+var popup = new mapboxgl.Popup({'closeOnClick': true})
+	.setLngLat([-71.05733871459961, 42.36057345238456])
+	.setHTML('<h2><b>Boston-Cambridge-Newton</b></h2><p><b>Cost-burdened households</b> 35.1%</br><b>Cost-burdened low income households:</b> 64.9%</br><b>Median single-family home value:</b> $441,151</br><b>Median household income:</b> $81,200</br><b>Homeownership rate:</b> 61.3%</p>')
+	.addTo(map);
+
+var popup = new mapboxgl.Popup({'closeOnClick': true})
+	.setLngLat([-122.44331359863282, 37.7745140408613])
+	.setHTML('<h2><b>San Jose-Sunnyvale-Santa Clara</b></h2><p><b>Cost-burdened households</b>: 36.5%</br><b>Cost-burdened low income households:</b> 76.2%</br><b>Median single-family home value:</b> $1.2 million</br><b>Median household income:</b> $109,210</br><b>Homeownership rate:</b> 56.6%</p>')
+	.addTo(map);
+
+var popup = new mapboxgl.Popup({'closeOnClick': true})
+	.setLngLat([-90.08102416992187, 29.957314210401563])
+    .setHTML('<h2><b>New Orleans-Metairie</b></h2><p><b>Cost-burdened households</b>: 36.2% </br><b>Cost-burdened low income households:</b> 44.5%</br><b>Median single-family home value:</b> $171,387</br><b>Median household income:</b> $48,700</br><b>Homeownership rate:</b> 60.7%</p>')
+    .addTo(map);
+</script>
+<br>
+<img style="float:left" src="San Jose.jpg" width="400" height="450"/><figcaption><b>Num.16 San Jose-Sunnyvale-Santa Clara, California</b></figcaption>
+<p style="color:salmon; font-family: 'Goudy Old Style'; font-size: 22px; margin-left: 500px; margin-right: 20px;">
+	Q1. Written in July 12, 2018, this <a href="https://www.usatoday.com/story/money/personalfinance/real-estate/2018/07/12/cities-americans-struggle-afford-homes/36766805/"><b>USA Today article</b></a> lists 21 metro areas where Americans spend more than 30% of their monthly income on housing. The idea is that housing as a basic need is placing a heavy toll of burden on American people because it is increasingly difficult to find and sustain as population increases. The article lists the cost-burden percentages and median home values, household incomes and homeownership rate for each metro area according to "The State of Nation's Housing 2018" reviewed by 24/7 Wall Street. Each table of data provided represent a hub of two to three cities within a state. For example, San Jose-Sunnyvale-Santa Clara is one metro hub that bears those figures. Other important housing-ridden hubs are New Haven-Milford, New York-Newward-Jersey City, San Diego-Carlbads, as well as hubs in Florida, Virginia, etc. California has the most numbers of hotspot hubs, occupying number 1 on the list based on the highest low income household burden percentage (74.6%) is Los Angles-Long Beach-Anaheim metro area. These figures across the article are particularly troublesome considering how low income households are spending more than half of their income on housing, leaving them with little left to cover other needs such as food, utilities, transportations, and savings. The key actor is rising population and lack of low-cost housing options which lead to the climbing housing costs and housing shortage. The State population is represented by color-coded population density in each state, the redder a state is, the more population-impacted it is. The hubs of metro areas are then represented by a heat map and several home icons, they signal the high demand places responsible for the higher home values. In addition, I included a few popups to show what sort of data the article included to support the findings.<br>
+	<hr>
+
+<img style="float:left" src="Boston.jpg" width="400" height="400"/><figcaption><b>Num.20 Boston-Cambridge-Newton, Massachusetts-New Hampshire</b></figcaption>
+<p style="color:salmon; font-family: 'Goudy Old Style'; font-size: 22px; margin-left: 500px; margin-right: 20px;">
+	Q2. To effectively convey the message, I set out to minimize other distracting layers such as waterways, bridges, background, ocean currents, etc. I chose only to engage two datasets, one is of the state population density which I downloaded from the web and the other I built using GeoJSON tools incoporating the geographic locations given by the article. I was having trouble with delegating colors to each state because together they may not convey the relationships of these density numbers. I decide to stay with colors in the warmer gradient. In order to display all the states, I use one color code for a group of 5 states that have similar densities. I continued with the next color, which has to be warmer, to display the next 5 denser states, so forth. This process was very tedious as I have to assigned colors to all fifty states. I decided to keep the state labels, city labels and roads to provide spatial information. They were assigned a colors on the cooler gradiant to contrast with the warmer surface of the map. The heat map is useful to indicate a concern, a concentration that I wanted the audience to take interest in. However, the heat map is slowly faded out as the map is zoomed in, this gives me the space to set the icons indicating homes/housing areas. The purpose of this transition is to convey that these heat map areas are formed from high housing cost burdens.</p>	
+<br>
+<hr>
+<img style="float:left"; src="New Orleans.jpg" width="400" height="400"/><figcaption><b>Num.18 New Orleans-Metairie, Louisiana</b></figcaption>
+<p style="color:salmon; font-family: 'Goudy Old Style'; font-size: 22px; margin-left: 500px; margin-right: 20px;">
+	Q3. The author of this article ties the housing insecurity to population growth in the U.S where people sprawled into metropolitan cities to seek economic opportunities. The outliners of this housing burden are the low-income families who pay almost 3/4 of their monthly income into their housing. This is a limitation of the article to present only the quantifiable datasets for cities with high rates of cost-burden. It lacks other possible datasets that may be less quantifiable such as quality of life and levels of happiness. Perhaps, a more humanistic approach to urban issues can also be used to enhance the empirical data in the article.<br>
+	Another perspective which was not looked at is the availability of low-cost housing options. This omission serves the purpose of this article which is to shed light on where people are struggling to afford housing in the U.S. To really understand housing cost as economic and financial burden for these crowded cities, we would need to look out what it does to people who <a href="https://www.huffingtonpost.com/entry/america-housing-crisis-living-in-vehicles_us_5b680be3e4b0fd5c73db49bf">live in their cars with their family members or become homeless to shed the burden of cost.</a> The dominance of showing cost-burden households in these metropolitan cities makes the U.S seems a lot more close-knit as a place and smaller on the social scale. For the audience, the world has become smaller unevenly. All other places or states not mentioned slip into oblivion to the audience, people know that they exist, but they don’t register them as important on the scale of potential residence. Modernity compels people to live close to urban areas, despite the problems urban living entails.
+<br>
+<hr>
+<img style="float:left"; src="Bridgeport.jpg" width="400" height="400"/><figcaption><b>Num.9 Bridgeport-Stamford-Norwalk, Connecticut</b></figcaption>
+<p style="color:salmon; font-family: 'Goudy Old Style'; font-size: 22px; margin-left: 500px; margin-right: 20px;">
+	Having been aware of this universal human nature, if I were to tell the story, I’d tell a story about the <a href="https://hamiltonfamilies.org/what-we-do/housing-solutions/"> effort to assist and restore housing for low-income families</a> because often, people are not as aware of the resources out there as they are with the problems they’re facing. I would gather data on location of alternative housing options that exist within these metro hubs. Then I would create, assuming I will be able to, an interactive map that enable the audience to obtain information about the address, website, and a general description of the services they provide when they click on the indicated icon. At a close-up zoom level, the audience will be able to see the 3D rendering of the marked buildings to help in visualizing and decision-making processes. On the same map, I would attempt to present the subtleties of choices to live in other places or in this case, states, by a different set of icon which has popup information about the median income and home value in each state specific location. For example, <a href="https://www.gobankingrates.com/making-money/wealth/poorest-city-state/#4"> a median home value in Douglas, Arizona is $89,600 and its median household income is $26,222.</a><br>
+	While Mapbox has tons of options in stylizing the layers imported from the datasets, I do feel that the making of map itself has limitations that we as designers of maps, cannot show everything pertinent. If we do, the map is convoluted with data that does not deliver the message or purpose efficiently. For instance, if I were to include the level of happiness in each state, the cheaper homes in other states and the alternative housing options all at once, the audience is now left with more questions rather than being able to understand the story. This is where an article would come in to complement the map on telling the story intended. Even with these limitations, my map was able to tell the bring better visualization to the audience by showing population densities in a range of colors. This is a pro of Mapbox, it allows users to input colors at different zoom levels to enhance storytelling whereas the article couldn’t have done this without making the information harder to extract.<br>
+	There are some problems with Mapbox platform allowing third party tileset and dataset to be imported into its maps. The properties that were inputted to GeoJSON may not show up as desired. One would need to spend lots of time to arrange the properties to appear as desired, even then, the options are limited to colors, fonts, sizes and zoom levels. In experiencing these map making platforms and its limitations, I still think that maps can tell everything but not everything at once, there are sacrifices to make about when considering what sort of story the map will tell.<br>
+
+<br>
+</br>
+<hr>
+<img style="margin-left: 300px" src="Jonathan-soft-city.jpg" width="800" height="400"/>
+<br>
+</br>
+
+<br>
+</br>
+
+<br>
+</br>
+
+<br>
+</br>
+
+<br>
+</br>
+
+<br>
+</br>
+
+
+</body>
+</html>

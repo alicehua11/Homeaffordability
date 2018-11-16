@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <title>Points on a map</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+      body {
+        margin: 50;
+        padding: 0;
+      }
+
+   #map { margin-left: 150px; position: relative; top:0; bottom:0; width:1100px; height:500px; }
+      
+    </style>
+  </head>
+  <body>
+    <div id='map'></div>
+    <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiYWxpY2VodWExMSIsImEiOiJjam1iMHV5aXAwMGRtM3JzM2dzamJjamkzIn0.gCsvu2g9o3J5DKJfNarokQ'; 
+    var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/alicehua11/cjmb3sdkz856v2rpb47yh74ms', 
+      center: [ -97.55859375, 37.16031654673677],
+      zoom: 3.5
+    });
+
+  map.on('click', function(e) {
+  var features = map.queryRenderedFeatures(e.point, {
+    layers: ['Constantly Curious'] 
+  });
+
+  if (!features.length) {
+    return;
+  }
+
+  var feature = features[0];
+
+  var popup = new mapboxgl.Popup({ offset: [0, -15] }),
+    .setLngLat(feature.geometry.coordinates),
+    .setHTML('<p>' + feature.properties.Median single-family home value + '</p><p>' + feature.properties.Median household income + '</p><p>' + feature.properties.Cost-burden households + '</p><p>' + feature.properties.Cost-burdened low income households + '</p><p>' + feature.properties.Homeownership rate + '</p>'),
+    .setLngLat(feature.geometry.coordinates),
+    .addTo(map);
+});
+    </script>
+  </body>
+</html>
