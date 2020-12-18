@@ -20,7 +20,7 @@
     <div id='map'></div>
     <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoiYWxpY2VodWExMSIsImEiOiJjam1iMHV5aXAwMGRtM3JzM2dzamJjamkzIn0.gCsvu2g9o3J5DKJfNarokQ'; 
-    var map = new mapboxgl.Map({
+    const map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/alicehua11/cjmb3sdkz856v2rpb47yh74ms', 
       center: [ -97.55859375, 37.16031654673677],
@@ -29,19 +29,24 @@
 
   map.on('click', function(e) {
   var features = map.queryRenderedFeatures(e.point, {
-    layers: ['Constantly Curious'] 
+    // layers: ['Constantly Curious'] double check the name of this layer it seems to not exist
   });
 
   if (!features.length) {
     return;
   }
-
+  /*
+  some tips for debugging your code: use the browser inspector to check the errors and use console.log() as I did at line 42 to check values of variables.
+  it would be also useful to install a good editor like visual studio code which would allow you to catch sintax errors with explanation and everything...a good way to learn
+  from my point of view.
+  feature.geometry.coordinates seems to have different formats depending on where you click on the map. if you notice you ll see a popup with no js errors just when you click
+  on the name of a country, all the other areas of the map will trigger a js error onclick probably cause the format of feature.geometry.coordinates changes in these cases.
+  */
   var feature = features[0];
-
-  var popup = new mapboxgl.Popup({ offset: [0, -15] }),
-    .setLngLat(feature.geometry.coordinates),
-    .setHTML('<p>' + feature.properties.Median single-family home value + '</p><p>' + feature.properties.Median household income + '</p><p>' + feature.properties.Cost-burden households + '</p><p>' + feature.properties.Cost-burdened low income households + '</p><p>' + feature.properties.Homeownership rate + '</p>'),
-    .setLngLat(feature.geometry.coordinates),
+  console.log(feature.geometry.coordinates);
+  var popup = new mapboxgl.Popup({ offset: [0, -15] })
+    .setLngLat(feature.geometry.coordinates)
+    .setHTML('Hello, ehm, world! :)')
     .addTo(map);
 });
     </script>
